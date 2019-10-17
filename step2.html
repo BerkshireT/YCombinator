@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html>
    <body>
-      <h1>Step 2: </h1>
+      <h1>Step 2: Abstract the Recursive Call</h1>
 
-      <p></p>
+      <p>We want to transform the regular recursive function to contain no references to itself. This allows
+         for proper abstractions for the Y Combinator to do its work.
+      </p>
+      <p>In order to do this, we need to remove the call to factorial in the factorial function:</p>
+
+      <pre>
+function factorial(f, x) {
+   return x < 1 ? 1 : x * f(f, x - 1);
+}
+      </pre>
+      <p>This is done by abstracting the call to factorial with an assumption that the function will be passed
+         another higher-order function that contains the same recursive logic as the traditional factorial. So we are assuming
+         the function 'f' contains 'return x < 1 ? 1 : x * f(f, x - 1);'
+      </p>
+
+      <p>But the function 'f' doesn't exist in factorial, right? How can we recurse without defining factorial again?
+         In order for this function to actually be able to recurse, we need a helper function:</p>
+      <pre>
+function helper (recurser, x) {
+   return recurser(recurser, x);
+}
+      </pre>
+
+      <p>We can call this function like so:</p>
+      <pre>
+helper(factorial, 7)         
+      </pre>
+      <p>The helper funciton immediately returns the function called to it with the function invocation. Since we 
+         pass the factorial function to itself in the helper, this allows the missing 'f' function above to be filled
+         in with itself. This effectively creates recursion where otherwise not possible since the helper will only
+         truly "return" once the computations for the factorial have bubbled up following the base case.
+      </p>
 
       <button
       type="button"

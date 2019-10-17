@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>Step 4: Currying</h1>
+
+      <p>With a concept called currying (also created by Haskell Curry), we can transform functions with any
+         number of arguments into a chain of functions each taking only one.
+      </p>
+      <p>So if we have a function like this:</p>
+      <pre>
+function f (x, y) {
+   ...
+};
+      </pre>
+      <p>Which is called like this:</p>
+      <pre>
+f(x, y);
+      </pre>
+
+      <p>We can transform it, using currying, into a function like this:</p>
+      <pre>
+function F (x) { return function (y) {
+   ...
+}};
+      </pre>
+      <p>And call it like this:</p>
+      <pre>
+F(x)(y);
+      </pre>
+
+      <p>The transformed function chains it's input into multiple returns of subsequent functions. This
+         is a very poweful tool when used with higher-order functions, because it allows the programmer to
+         create dynamic toolchains made up of smaller functions working together as opposed to one static
+         function which takes a specific input.
+      </p>
+      
+      <button
+      type="button"
+      onclick="window.location.href='step5.html'">
+      Next</button>
+      <button
+      type="button"
+      onclick="window.location.href='step3.html'">
+      Previous</button>
+      <button
+      type="button"
+      onclick="window.location.href='ycombinator.html'">
+      Home</button>
+   </body>
+</html>

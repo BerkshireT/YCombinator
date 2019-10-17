@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>Step 5: Applying Currying to Y Combinator</h1>
+
+      <p>Now all we have to do to finish the Y Combinator is apply currying wherever there is a function call:</p>
+      <pre>
+function ycomb (recurser, x) {
+   return recurser(recurser, x);
+}(function factorial(f, x) {
+   return x < 1 ? 1 : x * f(f, x - 1);
+}, 7);
+      </pre>
+      <p>Becomes:</p>
+      <pre>
+function ycomb(f) {
+   return (function(g) {
+      return g(g);
+   })(function(g) {
+      return f(function() {
+         return x < 1 ? 1 : x * f(f, x - 1);
+      });
+   });
+}
+      </pre>
+      <p>With the explicit parameter of 7 factored out</p>
+      <!--explain this-->
+      <!--show substitution of return g(g).apply(this, arguments);-->
+      
+      <button
+      type="button"
+      onclick="window.location.href='step4.html'">
+      Previous</button>
+      <button
+      type="button"
+      onclick="window.location.href='ycombinator.html'">
+      Home</button>
+   </body>
+</html>
