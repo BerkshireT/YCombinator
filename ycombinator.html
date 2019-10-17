@@ -87,7 +87,7 @@ due: Nov 13, 2019
       Clear All</button>
 
 
-      <p>See how the Y combinator works with the factorial function here!</p>
+      <p>See how the Y combinator works with the factorial function <a href="step1.html">here!</a></p>
 
       <script>
          function ycomb(f) {
@@ -126,6 +126,13 @@ due: Nov 13, 2019
                return e === 0 ? 1 : b * f(b, e - 1)
             }
          });
+
+         // fixed point higher order func used to implement recursion
+         // start with regular recursion
+         // get rid of assignments and defines and vars
+         // abstract recursive func and assume we get it passed in i.e. function (f) ... return x *f(...), separate then merge into one func for examp
+         // get rid of need for two args by currying the function and apply it throughout
+
       </script>
    </body>
 </html>

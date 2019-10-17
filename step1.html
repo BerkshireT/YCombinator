@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <h1>Step 1: Defining the Y Combinator</h1>
+
+      <p>The Y Combinator is a complex yet ingenious feature of functional programming languages which was developed by Haskell Curry to prove lamdba calculus is Turing complete.
+         It is a <a href="https://en.wikipedia.org/wiki/Fixed_point_(mathematics)" target="_blank">fixed point</a> 
+         <a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank">higher-order</a> function which aims to implement recursion in programming languages 
+         that otherwise wouldn't have it.
+      </p>
+
+      <p>Here's the Y Combinator method, written in JavaScript, used on the main page to calculate each expression:</p>
+      <pre>
+function ycomb(f) {
+   return (function(g) {
+      return g(g);
+   })(function(g) {
+      return f(function() {
+            return g(g).apply(this, arguments);
+      });
+   });
+}
+      </pre>
+
+      <p>This function is a lot to take in at first, so let's start with a familiar version of the recursive factorial function:</p>
+      <pre>
+function factorial(x) {
+   return x < 1 ? 1 : x * f(x - 1);
+}
+      </pre>
+      <p>This is the basic factorial algorithm: If the number is 0, then the factorial is equal to 1; Otherwise, multiply the number by the factorial of one less than the number.</p>
+
+      <button
+      type="button"
+      onclick="window.location.href='step2.html'">
+      Next</button>
+      <button
+      type="button"
+      onclick="window.location.href='ycombinator.html'">
+      Previous</button>
+      <button
+      type="button"
+      onclick="window.location.href='ycombinator.html'">
+      Home</button>
+   </body>
+</html>
