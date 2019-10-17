@@ -15,11 +15,117 @@ due: Nov 13, 2019
 <!DOCTYPE html>
 <html>
    <body>
-      <h1>Y Combinator</h1>
-      <p>Examples of recursive methods build with a Y combinator:</p>
+      <p>CPS 452 Midterm Project by Tyler Berkshire</p>
+      <h1>The Y Combinator</h1>
+      <p>Examples of recursive methods built with a Y combinator:</p>
+
       <h2>Factorial</h2>
+      <p style="display: inline;">X:</p>
+      <input type="number" id="fact">
+      <br>
+      <p style="display: inline">Answer:</p>
+      <input type="number" id="factAnswer" disabled>
+      <br>
+      <button
+      type="button"
+      onclick="factWrap(getElementById('fact').value)">
+      Calculate</button>
+      <button 
+      type="button"
+      onclick="getElementById('fact').value = '';
+      getElementById('factAnswer').value = '';">
+      Clear</button>
+
       <h2>Fibonacci</h2>
+      <p style="display: inline">X:</p>
+      <input type="number" id="fib">
+      <br>
+      <p style="display: inline">Answer:</p>
+      <input type="number" id="fibAnswer" disabled>
+      <br>
+      <button
+      type="button"
+      onclick="fibWrap(getElementById('fib').value)">
+      Calculate</button>
+      <button 
+      type="button"
+      onclick="getElementById('fib').value = '';
+      getElementById('fibAnswer').value = '';">
+      Clear</button>
+
       <h2>Exponentiation</h2>
+      <p style="display: inline">Base:</p>
+      <input type="number" id="base">
+      <br>
+      <p style="display: inline">Exponent:</p>
+      <input type="number" id="exp">
+      <br>
+      <p style="display: inline">Answer:</p>
+      <input type="number" id="expAnswer" disabled>
+      <br>
+      <button
+      type="button"
+      onclick="expWrap(getElementById('base').value,getElementById('exp').value)">
+      Calculate</button>
+      <button
+      type="button"
+      onclick="getElementById('base').value = '';
+      getElementById('exp').value = '';
+      getElementById('expAnswer').value = '';">
+      Clear</button>
+
+      <br><br>
+      <button
+      type="button"
+      onclick="getElementById('fact').value = '';
+      getElementById('factAnswer').value = '';
+      getElementById('fib').value = '';
+      getElementById('fibAnswer').value = '';
+      getElementById('base').value = '';
+      getElementById('exp').value = '';
+      getElementById('expAnswer').value = '';">
+      Clear All</button>
+
+
       <p>See how the Y combinator works with the factorial function here!</p>
+
+      <script>
+         function ycomb(f) {
+            return (function(g) {
+               return g(g);
+            })(function(g) {
+               return f(function() {
+                     return g(g).apply(this, arguments);
+               });
+            });
+         }
+
+         function factWrap(x) {
+            document.getElementById("factAnswer").value = fact(x);
+         }
+         var fact = ycomb(function(f) {
+            return function(x) {
+               return x < 1 ? 1 : x * f(x - 1);
+            }
+         });
+
+         function fibWrap(x) {
+            document.getElementById("fibAnswer").value = fib(x);
+         }
+         var fib = ycomb(function(f) {
+            return function(x) {
+               return x <= 1 ? 1 : f(x - 1) + f(x - 2);
+            }
+         });
+
+         function expWrap(b, e) {
+            document.getElementById("expAnswer").value = exp(b, e);
+         }
+         var exp = ycomb(function(f) {
+            return function(b, e) {
+               return e === 0 ? 1 : b * f(b, e - 1)
+            }
+         });
+      </script>
    </body>
 </html>
