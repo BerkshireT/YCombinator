@@ -9,7 +9,7 @@ function ycomb (recurser, x) {
    return recurser(recurser, x);
 }(function factorial(f, x) {
    return x < 1 ? 1 : x * f(f, x - 1);
-}, 7);
+}, x);
       </pre>
       <p>Becomes:</p>
       <pre>
@@ -18,12 +18,25 @@ function ycomb(f) {
       return g(g);
    })(function(g) {
       return f(function() {
-         return x < 1 ? 1 : x * f(f, x - 1);
+         return g(g).apply(this, arguments);
       });
    });
 }
       </pre>
-      <p>With the explicit parameter of 7 factored out</p>
+      <p>The 'return g(g).apply(this, arguments)' applies the function 'g' to any number of arguments. This lets us extend the use of the Y Combinator to functions like
+         'Exponent(base, exp)' which take more than one argument. Now we can store our function for factorials like so:
+      </p>
+      <pre>
+var fact = ycomb(function(f) {
+   return function(x) {
+      return x < 1 ? 1 : x * f(x - 1);
+   }
+});
+fact(5) // returns 120
+      </pre>
+
+      <p>We can also replace the 'return x < 1 ? 1 : x * f(x - 1)' with any other recursive function!</p>
+      <p>Now the Y Combinator is complete! This is how recursion can be built into a language that doesn't have it natively. Neat, huh?</p>
       <!--explain this-->
       <!--show substitution of return g(g).apply(this, arguments);-->
       

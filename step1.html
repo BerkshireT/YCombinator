@@ -17,7 +17,7 @@ function ycomb(f) {
       return g(g);
    })(function(g) {
       return f(function() {
-            return g(g).apply(this, arguments);
+         return g(g).apply(this, arguments);
       });
    });
 }
